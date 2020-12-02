@@ -1,6 +1,6 @@
 <h1> <%= @article.title%></h1>
 <br>
-<% @article.body.split("\r\n").reject(&:empty?).each do |p| %>
+<% @article.body.split("\n").reject(&:empty?).each do |p| %>
     <p><%= p %></p>
     <br>
 <% end %>
