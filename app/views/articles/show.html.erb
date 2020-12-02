@@ -1,5 +1,15 @@
 <h1> <%= @article.title%></h1>
-<p><%= @article.body%></p>
+<br>
+<% @article.body.split("\r\n").reject(&:empty?).each do |p| %>
+    <p><%= p %></p>
+    <br>
+<% end %>
 <%= link_to  "delete", @article, method: :delete, data: {confirm: "Are you sure you want to DELETE this?"} %>
 <%= link_to  "edit", edit_article_path %>
+
+<h3>Comments (
+    <%= @article.comments.size%>
+)</h3>
+<%= render partial:  "comments/form" %>
+<%= render partial:  "articles/comment", collection: @article.comments %>
 <%= link_to  "Back", articles_path %>
