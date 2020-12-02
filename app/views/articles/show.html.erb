@@ -1,15 +1,21 @@
 <h1> <%= @article.title%></h1>
-<br>
-<% @article.body.split("\n").reject(&:empty?).each do |p| %>
-    <p><%= p %></p>
+<%unless @article.tags.empty?%>
+    <p>Tags:
+        <% @article.tags.each do |tag|%>
+            <%= link_to  tag.name, tag %>
+        <%end%>
+    </p>
     <br>
+<%end%>
+<% @article.body.split("\n").reject(&:empty?).each do |p| %>
+    <p><%= p %></p><br>
 <% end %>
 <%= link_to  "delete", @article, method: :delete, data: {confirm: "Are you sure you want to DELETE this?"} %>
 <%= link_to  "edit", edit_article_path %>
 
+<%= render partial:  "comments/form" %>
 <h3>Comments (
     <%= @article.comments.size%>
 )</h3>
-<%= render partial:  "comments/form" %>
 <%= render partial:  "articles/comment", collection: @article.comments %>
 <%= link_to  "Back", articles_path %>
